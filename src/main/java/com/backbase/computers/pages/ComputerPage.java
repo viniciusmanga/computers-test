@@ -32,7 +32,7 @@ public class ComputerPage extends AbstractPage {
 	private WebElement discontinuedDate;
 
 	@FindBy(id = "company")
-	private Select company;
+	private WebElement company;
 
 	@FindBy(xpath = "//input[contains(@value, 'Create this computer')]")
 	private WebElement createComputerButton;
@@ -56,7 +56,8 @@ public class ComputerPage extends AbstractPage {
 	}
 	
 	public void fillCompany(String value) {
-		company.selectByVisibleText(value);
+		Select companySelect = new Select(company);
+		companySelect.selectByVisibleText(value);
 	}
 
 	public void save() {
