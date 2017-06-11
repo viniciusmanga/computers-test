@@ -18,7 +18,7 @@ import com.backbase.computers.config.WebDriverProvider;
  */
 @Component
 public abstract class AbstractPage {
-
+	
 	@Autowired
 	private WebDriverProvider provider;
 

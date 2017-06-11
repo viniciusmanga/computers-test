@@ -37,6 +37,12 @@ public class ComputerPage extends AbstractPage {
 	@FindBy(xpath = "//input[contains(@value, 'Create this computer')]")
 	private WebElement createComputerButton;
 
+	@FindBy(xpath = "//input[contains(@value, 'Save this computer')]")
+	private WebElement updateComputerButton;
+
+	@FindBy(xpath = "//input[contains(@value, 'Delete this computer')]")
+	private WebElement deleteComputerButton;
+	
 	@FindBy(xpath = "//a[contains(text(), 'Cancel')]")
 	private WebElement cancelButton;
 
@@ -64,6 +70,14 @@ public class ComputerPage extends AbstractPage {
 		createComputerButton.click();
 	}
 
+	public void update() {
+		updateComputerButton.click();
+	}
+	
+	public void delete() {
+		deleteComputerButton.click();
+	}
+
 	public boolean isErrorDisplayedOnField(String fieldName) {
 		String xpath = String.format("//label[contains(text(), '%s')]//ancestor::div[contains(@class, 'clearfix error')]", fieldName);
 		return getDriver().findElement(By.xpath(xpath)).isDisplayed();
@@ -72,7 +86,7 @@ public class ComputerPage extends AbstractPage {
 	@Override
 	public boolean isLoaded() {
 		return computerName.isDisplayed() && introducedDate.isDisplayed() && introducedDate.isDisplayed() && discontinuedDate.isDisplayed()
-				 && createComputerButton.isDisplayed() && cancelButton.isDisplayed();
+				 && cancelButton.isDisplayed();
 	}
 
 	@Override
@@ -81,7 +95,7 @@ public class ComputerPage extends AbstractPage {
 			WebDriverWait wait = new WebDriverWait(getDriver(), 5000, 1000);
 			wait.until(ExpectedConditions.visibilityOf(computerName));
 			
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			LOG.warning("Page not loaded");
 		}

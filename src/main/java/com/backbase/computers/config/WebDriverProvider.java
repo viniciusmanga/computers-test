@@ -5,7 +5,8 @@ package com.backbase.computers.config;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,15 +16,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebDriverProvider {
 	
-	private static final String WEBDRIVER_PROPERTY = "webdriver.gecko.driver"; 
+	private static final String WEBDRIVER_PROPERTY = "webdriver.gecko.driver";
 	
-	@Value("${driver.location}")
-	private String driverLocation;
+	private static final String WINDOWS_WEBDRIVER = "src/main/resources/driver/geckodriver-win.exe"; 
 	
+	private static final String MAC_WEBDRIVER = "src/main/resources/driver/geckodriver-mac";
+	
+	@Autowired
+	private Environment env;
+
 	private WebDriver driver;
 	
 	public WebDriver getWebDriver() {
-		System.setProperty(WEBDRIVER_PROPERTY, "src/main/resources/driver/geckodriver");
+		final String system = env.getProperty("systemType");
+		
+		if (system.equals("OSX")) {
+			System.setProperty(WEBDRIVER_PROPERTY, MAC_WEBDRIVER);
+		} else {
+			System.setProperty(WEBDRIVER_PROPERTY, WINDOWS_WEBDRIVER);
+		}
 		
 		if (driver == null) {
 			driver = new FirefoxDriver();
@@ -31,7 +42,5 @@ public class WebDriverProvider {
 		}
 		return driver;
 	}
-	
-	
 
 }

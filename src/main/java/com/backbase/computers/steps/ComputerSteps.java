@@ -51,11 +51,24 @@ public class ComputerSteps {
 	public void createComputer() {
 		page.save();
 	}
+
+	@When("I click on the 'Save this computer' button")
+	public void updateComputer() {
+		page.update();
+	}
 	
-	@When("I should see the 'Add a new computer' page displayed")
+	@Then("I click on the 'Delete this computer' button")
+	public void deleteComputer() {
+		page.delete();
+	}
+
+	@When("I am on the 'Add a new computer' page")
+	public void loadDashboardPage() {
+		page.waitUntilIsLoaded();
+	}
+
 	@Then("I should see the 'Add a new computer' page displayed")
 	public void isPageDisplayed() {
-		page.waitUntilIsLoaded();
 		Assert.assertTrue(page.isLoaded());
 	}
 	

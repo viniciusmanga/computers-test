@@ -13,6 +13,7 @@ Then I should see the 'Dashboard' page loaded
 Scenario: Validate that the 'Add a new computer page' is loaded
 Given I am on the Computers dashboard page
 When I click on the 'Add a new computer' button
+And I am on the 'Add a new computer' page
 Then I should see the 'Add a new computer' page displayed
 
 Scenario: Validate that the 'Computer name' field is required
@@ -55,7 +56,7 @@ Scenario: Validate that a user can add a computer and sees the success message
 Given I am on the Computers dashboard page
 When I am on the 'Dashboard' page
 And I click on the 'Add a new computer' button
-And I should see the 'Add a new computer' page displayed
+And I am on the 'Add a new computer' page
 And I fill the 'Computer name' field with the value <computerName>
 And I fill the 'Introduced date' field with the value <introducedDate>
 And I fill the 'Discontinued date' field with the value <discontinuedDate>
@@ -88,6 +89,7 @@ When I am on the 'Dashboard' page
 And I filter computers with the value <computerName>
 And I am on the 'Dashboard' page
 And I click on the 'Computer name' <computerName> on the results table
+And I am on the 'Add a new computer' page
 Then I should see the 'Add a new computer' page displayed
 Examples:
 |	computerName	|
@@ -97,12 +99,13 @@ Examples:
 
 Scenario: Validate that computers can be edited
 Given I am on the Computers dashboard page
-When I am on the 'Dashboard' page
+When I am on the 'Dashboard' page 
 And I filter computers with the value <computerName>
 And I am on the 'Dashboard' page
 And I click on the 'Computer name' <computerName> on the results table
+And I am on the 'Add a new computer' page
 And I fill the 'Computer name' field with the value <computerNameUpdated>
-And I click on the 'Create new computer' button
+And I click on the 'Save this computer' button
 And I am on the 'Dashboard' page
 Then I should see the sucess message on 'Dashboard' page
 Examples:
@@ -114,5 +117,15 @@ Examples:
 Scenario: Validate that computers can be deleted sucessfully
 Given I am on the Computers dashboard page
 When I am on the 'Dashboard' page
-
-
+And I filter computers with the value <computerName>
+And I am on the 'Dashboard' page
+And I click on the 'Computer name' <computerName> on the results table
+And I am on the 'Add a new computer' page
+Then I click on the 'Delete this computer' button
+When I am on the 'Dashboard' page
+Then I should see the sucess message on 'Dashboard' page
+Examples:
+|	computerName			|
+|	Vini Computer A Updated	|
+|	Vini Computer B Updated	|
+|	Vini Computer C Updated	|
