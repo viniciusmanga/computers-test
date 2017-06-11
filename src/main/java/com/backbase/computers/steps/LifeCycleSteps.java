@@ -21,7 +21,7 @@ public class LifeCycleSteps {
 	
 	@AfterStory
 	public void afterStory() {
-//		provider.getWebDriver().quit();
+		provider.getWebDriver().quit();
 	}
 
 }
